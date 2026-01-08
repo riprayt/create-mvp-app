@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/12</span>
+                <span class='fraction'>12/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/26</span>
+                <span class='fraction'>26/26</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/12</span>
+                <span class='fraction'>12/12</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -102,30 +102,30 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import fs from 'fs/promises';
 import type { ProjectConfig } from '../../types.js';
@@ -133,31 +133,31 @@ import type { ProjectConfig } from '../../types.js';
 /**
  * Generates .env.local file with all necessary environment variables
  */
-export async function <span class="fstat-no" title="function not covered" >generateEnvFile(c</span>onfig: ProjectConfig): Promise&lt;void&gt; {
-  let envContent = <span class="cstat-no" title="statement not covered" >`# Clerk Auth Keys (Get from: https://dashboard.clerk.com)\nNEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=${config.envVars.clerkPublishableKey || 'pk_test_...'}\nCLERK_SECRET_KEY=${config.envVars.clerkSecretKey || 'sk_test_...'}\n\n# Supabase Keys (Get from: https://supabase.com/dashboard)\nNEXT_PUBLIC_SUPABASE_URL=${config.envVars.supabaseUrl || 'https://your-project.supabase.co'}\nNEXT_PUBLIC_SUPABASE_ANON_KEY=${config.envVars.supabaseAnonKey || 'your-anon-key'}\n`;</span>
+export async function generateEnvFile(config: ProjectConfig): Promise&lt;void&gt; {
+  let envContent = `# Clerk Auth Keys (Get from: https://dashboard.clerk.com)\nNEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=${config.envVars.clerkPublishableKey || 'pk_test_...'}\nCLERK_SECRET_KEY=${config.envVars.clerkSecretKey || 'sk_test_...'}\n\n# Supabase Keys (Get from: https://supabase.com/dashboard)\nNEXT_PUBLIC_SUPABASE_URL=${config.envVars.supabaseUrl || 'https://your-project.supabase.co'}\nNEXT_PUBLIC_SUPABASE_ANON_KEY=${config.envVars.supabaseAnonKey || 'your-anon-key'}\n`;
 &nbsp;
   // Add production features env vars
-<span class="cstat-no" title="statement not covered" >  if (config.includeCaching) {</span>
-<span class="cstat-no" title="statement not covered" >    envContent += `\n# Upstash Redis (Get from: https://console.upstash.com)\nUPSTASH_REDIS_REST_URL=${config.envVars.upstashRedisUrl || 'https://your-redis.upstash.io'}\nUPSTASH_REDIS_REST_TOKEN=${config.envVars.upstashRedisToken || 'your-redis-token'}\n`;</span>
+  if (config.includeCaching) {
+    envContent += `\n# Upstash Redis (Get from: https://console.upstash.com)\nUPSTASH_REDIS_REST_URL=${config.envVars.upstashRedisUrl || 'https://your-redis.upstash.io'}\nUPSTASH_REDIS_REST_TOKEN=${config.envVars.upstashRedisToken || 'your-redis-token'}\n`;
   }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  if (config.includeBackgroundJobs) {</span>
-<span class="cstat-no" title="statement not covered" >    envContent += `\n# Inngest (Get from: https://www.inngest.com)\nINNGEST_EVENT_KEY=your-inngest-event-key\nINNGEST_SIGNING_KEY=your-inngest-signing-key\n`;</span>
+  if (config.includeBackgroundJobs) {
+    envContent += `\n# Inngest (Get from: https://www.inngest.com)\nINNGEST_EVENT_KEY=your-inngest-event-key\nINNGEST_SIGNING_KEY=your-inngest-signing-key\n`;
   }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  if (config.includeWebhooks) {</span>
-<span class="cstat-no" title="statement not covered" >    envContent += `\n# Webhook Signing Secret\nWEBHOOK_SECRET=your-webhook-secret\n`;</span>
+  if (config.includeWebhooks) {
+    envContent += `\n# Webhook Signing Secret\nWEBHOOK_SECRET=your-webhook-secret\n`;
   }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  if (config.includeMonitoring) {</span>
-<span class="cstat-no" title="statement not covered" >    envContent += `\n# Sentry (Get from: https://sentry.io)\nSENTRY_DSN=${config.envVars.sentryDsn || 'https://your-sentry-dsn@sentry.io/project-id'}\n`;</span>
+  if (config.includeMonitoring) {
+    envContent += `\n# Sentry (Get from: https://sentry.io)\nSENTRY_DSN=${config.envVars.sentryDsn || 'https://your-sentry-dsn@sentry.io/project-id'}\n`;
   }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  if (config.includeFeatureFlags || config.includeABTesting) {</span>
-<span class="cstat-no" title="statement not covered" >    envContent += `\n# Vercel Edge Config (Get from: https://vercel.com/dashboard)\nEDGE_CONFIG=your-edge-config-id\n`;</span>
+  if (config.includeFeatureFlags || config.includeABTesting) {
+    envContent += `\n# Vercel Edge Config (Get from: https://vercel.com/dashboard)\nEDGE_CONFIG=your-edge-config-id\n`;
   }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  await fs.writeFile('.env.local', envContent);</span>
+  await fs.writeFile('.env.local', envContent);
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -166,7 +166,7 @@ export async function <span class="fstat-no" title="function not covered" >gener
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-01-08T17:55:04.055Z
+                at 2026-01-08T18:08:05.170Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

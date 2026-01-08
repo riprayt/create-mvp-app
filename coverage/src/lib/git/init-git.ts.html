@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/11</span>
+                <span class='fraction'>11/11</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/11</span>
+                <span class='fraction'>11/11</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -105,22 +105,22 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { execa } from 'execa';
@@ -131,26 +131,26 @@ import type { Logger } from '../../utils/logger.js';
 /**
  * Initializes a Git repository
  */
-export async function <span class="fstat-no" title="function not covered" >initGit(</span>
+export async function initGit(
   execOptions: { stdio?: 'inherit' },
   logger: Logger
 ): Promise&lt;void&gt; {
-  const <span class="cstat-no" title="statement not covered" >spinner = ora('Initializing Git repository...').start();</span>
+  const spinner = ora('Initializing Git repository...').start();
   
-<span class="cstat-no" title="statement not covered" >  try {</span>
-<span class="cstat-no" title="statement not covered" >    logger.debug('Initializing git...');</span>
-<span class="cstat-no" title="statement not covered" >    await execa('git', ['init'], execOptions);</span>
+  try {
+    logger.debug('Initializing git...');
+    await execa('git', ['init'], execOptions);
     
-<span class="cstat-no" title="statement not covered" >    logger.debug('Adding all files...');</span>
-<span class="cstat-no" title="statement not covered" >    await execa('git', ['add', '-A'], execOptions);</span>
+    logger.debug('Adding all files...');
+    await execa('git', ['add', '-A'], execOptions);
     
-<span class="cstat-no" title="statement not covered" >    logger.debug('Creating initial commit...');</span>
-<span class="cstat-no" title="statement not covered" >    await execa('git', ['commit', '-m', 'Initial commit via create-mvp-app', '--no-verify'], execOptions);</span>
+    logger.debug('Creating initial commit...');
+    await execa('git', ['commit', '-m', 'Initial commit via create-mvp-app', '--no-verify'], execOptions);
     
-<span class="cstat-no" title="statement not covered" >    spinner.succeed('Git repository initialized');</span>
+    spinner.succeed('Git repository initialized');
   } catch (error) {
-<span class="cstat-no" title="statement not covered" >    spinner.warn('Git initialization skipped');</span>
-<span class="cstat-no" title="statement not covered" >    logger.debug(`Git error: ${error}`);</span>
+    spinner.warn('Git initialization skipped');
+    logger.debug(`Git error: ${error}`);
   }
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -160,7 +160,7 @@ export async function <span class="fstat-no" title="function not covered" >initG
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-01-08T17:55:04.055Z
+                at 2026-01-08T18:08:05.170Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

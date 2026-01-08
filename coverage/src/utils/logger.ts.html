@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/7</span>
+                <span class='fraction'>7/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/7</span>
+                <span class='fraction'>7/7</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -103,16 +103,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">31x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">67x</span>
+<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import chalk from 'chalk';
@@ -128,17 +128,17 @@ export interface Logger {
 /**
  * Creates a logger instance with debug mode support
  */
-export function <span class="fstat-no" title="function not covered" >createLogger(d</span>ebugMode: boolean): Logger {
-<span class="cstat-no" title="statement not covered" >  return {</span>
-    debug: <span class="fstat-no" title="function not covered" >(m</span>essage: string) =&gt; {
-<span class="cstat-no" title="statement not covered" >      if (debugMode) {</span>
-<span class="cstat-no" title="statement not covered" >        console.log(chalk.gray(`[DEBUG] ${message}`));</span>
+export function createLogger(debugMode: boolean): Logger {
+  return {
+    debug: (message: string) =&gt; {
+      if (debugMode) {
+        console.log(chalk.gray(`[DEBUG] ${message}`));
       }
     },
-    info: <span class="fstat-no" title="function not covered" >(m</span>essage: string) =&gt; <span class="cstat-no" title="statement not covered" >console.log(chalk.blue(message)),</span>
-    error: <span class="fstat-no" title="function not covered" >(m</span>essage: string) =&gt; <span class="cstat-no" title="statement not covered" >console.error(chalk.red(message)),</span>
-    success: <span class="fstat-no" title="function not covered" >(m</span>essage: string) =&gt; <span class="cstat-no" title="statement not covered" >console.log(chalk.green(message)),</span>
-    warn: <span class="fstat-no" title="function not covered" >(m</span>essage: string) =&gt; <span class="cstat-no" title="statement not covered" >console.log(chalk.yellow(message)),</span>
+    info: (message: string) =&gt; console.log(chalk.blue(message)),
+    error: (message: string) =&gt; console.error(chalk.red(message)),
+    success: (message: string) =&gt; console.log(chalk.green(message)),
+    warn: (message: string) =&gt; console.log(chalk.yellow(message)),
   };
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -148,7 +148,7 @@ export function <span class="fstat-no" title="function not covered" >createLogge
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-01-08T17:55:04.055Z
+                at 2026-01-08T18:08:05.170Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

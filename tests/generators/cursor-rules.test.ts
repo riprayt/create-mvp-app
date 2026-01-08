@@ -2,8 +2,8 @@ import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import fs from 'fs/promises';
 import path from 'path';
 import os from 'os';
-import { generateCursorRules } from './cursor-rules.js';
-import type { ProjectConfig } from '../../types.js';
+import { generateCursorRules } from '../../src/lib/generators/cursor-rules.js';
+import type { ProjectConfig } from '../../src/types.js';
 
 describe('generateCursorRules', () => {
   let testDir: string;

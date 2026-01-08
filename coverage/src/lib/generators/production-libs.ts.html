@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/13</span>
+                <span class='fraction'>13/13</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/13</span>
+                <span class='fraction'>13/13</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -98,23 +98,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import fs from 'fs/promises';
@@ -123,25 +123,25 @@ import type { ProjectConfig } from '../../types.js';
 /**
  * Generates production library files (Redis, Inngest, Sentry)
  */
-export async function <span class="fstat-no" title="function not covered" >generateProductionLibs(c</span>onfig: ProjectConfig): Promise&lt;void&gt; {
+export async function generateProductionLibs(config: ProjectConfig): Promise&lt;void&gt; {
   // Create lib files for production features
-<span class="cstat-no" title="statement not covered" >  if (config.includeCaching) {</span>
-    const redisLibContent = <span class="cstat-no" title="statement not covered" >`import { Redis } from '@upstash/redis';\nimport { Ratelimit } from '@upstash/ratelimit';\n\nexport const redis = new Redis({\n  url: process.env.UPSTASH_REDIS_REST_URL!,\n  token: process.env.UPSTASH_REDIS_REST_TOKEN!,\n});\n\n// Rate limiting configuration\nexport const ratelimit = new Ratelimit({\n  redis,\n  limiter: Ratelimit.slidingWindow(10, '10 s'),\n  analytics: true,\n});\n`;</span>
-<span class="cstat-no" title="statement not covered" >    await fs.mkdir('src/lib', { recursive: true });</span>
-<span class="cstat-no" title="statement not covered" >    await fs.writeFile('src/lib/redis.ts', redisLibContent);</span>
+  if (config.includeCaching) {
+    const redisLibContent = `import { Redis } from '@upstash/redis';\nimport { Ratelimit } from '@upstash/ratelimit';\n\nexport const redis = new Redis({\n  url: process.env.UPSTASH_REDIS_REST_URL!,\n  token: process.env.UPSTASH_REDIS_REST_TOKEN!,\n});\n\n// Rate limiting configuration\nexport const ratelimit = new Ratelimit({\n  redis,\n  limiter: Ratelimit.slidingWindow(10, '10 s'),\n  analytics: true,\n});\n`;
+    await fs.mkdir('src/lib', { recursive: true });
+    await fs.writeFile('src/lib/redis.ts', redisLibContent);
   }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  if (config.includeBackgroundJobs) {</span>
-    const inngestContent = <span class="cstat-no" title="statement not covered" >`import { Inngest } from 'inngest';\n\nexport const inngest = new Inngest({ id: 'my-app' });\n`;</span>
-<span class="cstat-no" title="statement not covered" >    await fs.mkdir('src/lib', { recursive: true });</span>
-<span class="cstat-no" title="statement not covered" >    await fs.writeFile('src/lib/inngest.ts', inngestContent);</span>
+  if (config.includeBackgroundJobs) {
+    const inngestContent = `import { Inngest } from 'inngest';\n\nexport const inngest = new Inngest({ id: 'my-app' });\n`;
+    await fs.mkdir('src/lib', { recursive: true });
+    await fs.writeFile('src/lib/inngest.ts', inngestContent);
   }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  if (config.includeMonitoring) {</span>
-    const sentryContent = <span class="cstat-no" title="statement not covered" >`import * as Sentry from '@sentry/nextjs';\n\nSentry.init({\n  dsn: process.env.SENTRY_DSN,\n  tracesSampleRate: 1.0,\n  debug: false,\n});\n`;</span>
-<span class="cstat-no" title="statement not covered" >    await fs.writeFile('sentry.client.config.ts', sentryContent);</span>
-<span class="cstat-no" title="statement not covered" >    await fs.writeFile('sentry.server.config.ts', sentryContent);</span>
-<span class="cstat-no" title="statement not covered" >    await fs.writeFile('sentry.edge.config.ts', sentryContent);</span>
+  if (config.includeMonitoring) {
+    const sentryContent = `import * as Sentry from '@sentry/nextjs';\n\nSentry.init({\n  dsn: process.env.SENTRY_DSN,\n  tracesSampleRate: 1.0,\n  debug: false,\n});\n`;
+    await fs.writeFile('sentry.client.config.ts', sentryContent);
+    await fs.writeFile('sentry.server.config.ts', sentryContent);
+    await fs.writeFile('sentry.edge.config.ts', sentryContent);
   }
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -151,7 +151,7 @@ export async function <span class="fstat-no" title="function not covered" >gener
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-01-08T17:55:04.055Z
+                at 2026-01-08T18:08:05.170Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

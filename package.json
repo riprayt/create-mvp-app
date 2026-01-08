@@ -19,6 +19,8 @@
     "test": "vitest",
     "test:watch": "vitest --watch",
     "test:coverage": "vitest --coverage",
+    "test:unit": "vitest tests/generators tests/installers tests/utils tests/git",
+    "test:integration": "vitest tests/integration",
     "prepare": "pnpm build",
     "prepublishOnly": "pnpm build"
   },

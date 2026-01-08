@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>8/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>1/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>8/8</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -101,23 +101,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -125,28 +125,28 @@
 import ora from 'ora';
 import type { Logger } from '../../utils/logger.js';
 &nbsp;
-export async function <span class="fstat-no" title="function not covered" >installBlocks(</span>
+export async function installBlocks(
   blocks: string[],
   debugMode: boolean,
   logger: Logger
 ): Promise&lt;void&gt; {
-  const <span class="cstat-no" title="statement not covered" >spinner = ora('Installing Shadcn Blocks (this may take a while)...').start();</span>
+  const spinner = ora('Installing Shadcn Blocks (this may take a while)...').start();
   
-<span class="cstat-no" title="statement not covered" >  try {</span>
-<span class="cstat-no" title="statement not covered" >    logger.debug(`Installing ${blocks.length} Shadcn blocks...`);</span>
+  try {
+    logger.debug(`Installing ${blocks.length} Shadcn blocks...`);
     
-<span class="cstat-no" title="statement not covered" >    for (const block of blocks) {</span>
-<span class="cstat-no" title="statement not covered" >      logger.debug(`Installing block: ${block}`);</span>
-<span class="cstat-no" title="statement not covered" >      await execa(</span>
+    for (const block of blocks) {
+      logger.debug(`Installing block: ${block}`);
+      await execa(
         'sh',
         ['-c', `yes n | pnpm dlx shadcn add @shadcnblocks/${block} -y`],
-        debugMode ? { stdio: 'inherit' as const } : {}
+        debugMode ? <span class="branch-0 cbranch-no" title="branch not covered" >{ stdio: 'inherit' as const } : {</span>}
       );
     }
     
-<span class="cstat-no" title="statement not covered" >    spinner.succeed('Shadcn Blocks installed');</span>
+    spinner.succeed('Shadcn Blocks installed');
   } catch (error) {
-<span class="cstat-no" title="statement not covered" >    spinner.warn('Some Shadcn Blocks may have failed to install');</span>
+    spinner.warn('Some Shadcn Blocks may have failed to install');
     // Don't throw - blocks installation failures shouldn't stop the whole process
   }
 }
@@ -157,7 +157,7 @@ export async function <span class="fstat-no" title="function not covered" >insta
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-01-08T17:55:04.055Z
+                at 2026-01-08T18:08:05.170Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

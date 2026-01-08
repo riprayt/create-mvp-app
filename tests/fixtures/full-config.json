@@ -1,0 +1,27 @@
+{
+  "projectName": "full-featured-app",
+  "includeAuth": true,
+  "includeDb": true,
+  "includeUI": true,
+  "includeBlocks": true,
+  "includeTests": true,
+  "initGit": true,
+  "debugMode": false,
+  "includeCaching": true,
+  "includeBackgroundJobs": true,
+  "includeWebhooks": true,
+  "includeMultiTenancy": false,
+  "includeFeatureFlags": true,
+  "includeABTesting": false,
+  "includeMonitoring": true,
+  "includeAnalytics": true,
+  "envVars": {
+    "clerkPublishableKey": "pk_test_example",
+    "clerkSecretKey": "sk_test_example",
+    "supabaseUrl": "https://example.supabase.co",
+    "supabaseAnonKey": "example-anon-key",
+    "upstashRedisUrl": "https://example.upstash.io",
+    "upstashRedisToken": "example-token",
+    "sentryDsn": "https://example@sentry.io/123"
+  }
+}

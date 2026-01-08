@@ -1,0 +1,24 @@
+{
+  "projectName": "minimal-app",
+  "includeAuth": false,
+  "includeDb": false,
+  "includeUI": true,
+  "includeBlocks": false,
+  "includeTests": false,
+  "initGit": false,
+  "debugMode": false,
+  "includeCaching": false,
+  "includeBackgroundJobs": false,
+  "includeWebhooks": false,
+  "includeMultiTenancy": false,
+  "includeFeatureFlags": false,
+  "includeABTesting": false,
+  "includeMonitoring": false,
+  "includeAnalytics": false,
+  "envVars": {
+    "clerkPublishableKey": "",
+    "clerkSecretKey": "",
+    "supabaseUrl": "",
+    "supabaseAnonKey": ""
+  }
+}
