@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { generateConfigFiles } from '../../src/lib/generators/config-files.js';
-import { setupTestEnv, teardownTestEnv, assertFileExists, assertFileContent } from '../helpers/test-utils.js';
+import { setupTestEnv, teardownTestEnv, assertFileExists, assertFileContent } from '../helpers/test-utils.ts';
 
 describe('generateConfigFiles', () => {
   let testDir: string;

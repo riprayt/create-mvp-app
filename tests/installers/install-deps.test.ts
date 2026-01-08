@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { installDependencies, installDevDependencies } from '../../src/lib/installers/install-deps.js';
-import { createMockConfig } from '../helpers/test-utils.js';
+import { createMockConfig } from '../helpers/test-utils.ts';
 import { createLogger } from '../../src/utils/logger.js';
 import * as execaModule from 'execa';
 

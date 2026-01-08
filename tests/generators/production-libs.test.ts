@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { generateProductionLibs } from '../../src/lib/generators/production-libs.js';
-import { setupTestEnv, teardownTestEnv, createMockConfig, assertFileExists, assertFileNotExists, assertFileContent } from '../helpers/test-utils.js';
+import { setupTestEnv, teardownTestEnv, createMockConfig, assertFileExists, assertFileNotExists, assertFileContent } from '../helpers/test-utils.ts';
 
 describe('generateProductionLibs', () => {
   let testDir: string;

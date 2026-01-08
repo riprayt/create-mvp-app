@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { initGit } from '../../src/lib/git/init-git.js';
 import { createLogger } from '../../src/utils/logger.js';
-import { setupTestEnv, teardownTestEnv } from '../helpers/test-utils.js';
+import { setupTestEnv, teardownTestEnv } from '../helpers/test-utils.ts';
 import * as execaModule from 'execa';
 
 vi.mock('execa');

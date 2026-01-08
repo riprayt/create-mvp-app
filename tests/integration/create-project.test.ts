@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { createProject } from '../../src/lib/create-project.js';
-import { createMockConfig, setupTestEnv, teardownTestEnv, assertFileExists } from '../helpers/test-utils.js';
+import { createMockConfig, setupTestEnv, teardownTestEnv, assertFileExists } from '../helpers/test-utils.ts';
 import * as installPnpmModule from '../../src/lib/installers/install-pnpm.js';
 import * as installNextjsModule from '../../src/lib/installers/install-nextjs.js';
 import * as installShadcnModule from '../../src/lib/installers/install-shadcn.js';

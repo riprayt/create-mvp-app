@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { generateLandingPage } from '../../src/lib/generators/landing-page.js';
-import { setupTestEnv, teardownTestEnv, assertFileExists, assertFileContent } from '../helpers/test-utils.js';
+import { setupTestEnv, teardownTestEnv, assertFileExists, assertFileContent } from '../helpers/test-utils.ts';
 
 describe('generateLandingPage', () => {
   let testDir: string;
