@@ -63,6 +63,15 @@ program
           supabaseAnonKey: options.supabaseKey || '',
         },
         openInVSCode: options.open || false,
+        // Production features (enabled by default in quick mode)
+        includeCaching: true,
+        includeBackgroundJobs: true,
+        includeWebhooks: true,
+        includeMultiTenancy: false,
+        includeFeatureFlags: true,
+        includeABTesting: false,
+        includeMonitoring: true,
+        includeAnalytics: true,
       };
     } else {
       // Interactive mode
@@ -78,13 +87,29 @@ program
         {
           type: 'multiselect',
           name: 'features',
-          message: 'Select features to include:',
+          message: 'Select core features to include:',
           choices: [
             { title: 'Authentication (Clerk)', value: 'auth', selected: true },
             { title: 'Database (Supabase)', value: 'db', selected: true },
             { title: 'Shadcn UI Components', value: 'ui', selected: true },
             { title: 'Shadcn Blocks (90+ components)', value: 'blocks', selected: true },
             { title: 'Testing (Vitest + Playwright)', value: 'tests', selected: true },
+          ],
+          hint: 'Space to select, Enter to confirm',
+        },
+        {
+          type: 'multiselect',
+          name: 'productionFeatures',
+          message: 'Select production-ready features (recommended for production apps):',
+          choices: [
+            { title: 'Caching Layer (Upstash Redis)', value: 'caching', selected: true },
+            { title: 'Background Jobs (Inngest)', value: 'jobs', selected: true },
+            { title: 'Webhooks Setup', value: 'webhooks', selected: true },
+            { title: 'Multi-tenancy', value: 'multitenancy', selected: false },
+            { title: 'Feature Flags (Vercel Flags)', value: 'flags', selected: true },
+            { title: 'A/B Testing (Vercel Edge Config)', value: 'abtesting', selected: false },
+            { title: 'Monitoring (Sentry)', value: 'monitoring', selected: true },
+            { title: 'Analytics (Vercel)', value: 'analytics', selected: true },
           ],
           hint: 'Space to select, Enter to confirm',
         },
@@ -114,11 +139,15 @@ program
       }
 
       const features = responses.features || [];
-      let envVars = {
+      const productionFeatures = responses.productionFeatures || [];
+      let envVars: any = {
         clerkPublishableKey: '',
         clerkSecretKey: '',
         supabaseUrl: '',
         supabaseAnonKey: '',
+        upstashRedisUrl: '',
+        upstashRedisToken: '',
+        sentryDsn: '',
       };
 
       if (responses.provideEnvVars && features.includes('auth')) {
@@ -153,6 +182,33 @@ program
         envVars = { ...envVars, ...dbEnv };
       }
 
+      if (responses.provideEnvVars && productionFeatures.includes('caching')) {
+        const cachingEnv = await prompts([
+          {
+            type: 'text',
+            name: 'upstashRedisUrl',
+            message: 'Upstash Redis URL (leave empty to skip):',
+          },
+          {
+            type: 'password',
+            name: 'upstashRedisToken',
+            message: 'Upstash Redis Token (leave empty to skip):',
+          },
+        ]);
+        envVars = { ...envVars, ...cachingEnv };
+      }
+
+      if (responses.provideEnvVars && productionFeatures.includes('monitoring')) {
+        const monitoringEnv = await prompts([
+          {
+            type: 'text',
+            name: 'sentryDsn',
+            message: 'Sentry DSN (leave empty to skip):',
+          },
+        ]);
+        envVars = { ...envVars, ...monitoringEnv };
+      }
+
       config = {
         projectName: projectName || responses.projectName,
         includeAuth: features.includes('auth'),
@@ -164,6 +220,15 @@ program
         debugMode,
         envVars,
         openInVSCode: responses.openInVSCode,
+        // Production features
+        includeCaching: productionFeatures.includes('caching'),
+        includeBackgroundJobs: productionFeatures.includes('jobs'),
+        includeWebhooks: productionFeatures.includes('webhooks'),
+        includeMultiTenancy: productionFeatures.includes('multitenancy'),
+        includeFeatureFlags: productionFeatures.includes('flags'),
+        includeABTesting: productionFeatures.includes('abtesting'),
+        includeMonitoring: productionFeatures.includes('monitoring'),
+        includeAnalytics: productionFeatures.includes('analytics'),
       };
     }
 

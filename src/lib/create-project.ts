@@ -102,6 +102,42 @@ export async function createProject(config: ProjectConfig) {
       log('Adding env validation');
     }
 
+    // Production features
+    if (config.includeCaching) {
+      deps.push('@upstash/redis', '@upstash/ratelimit');
+      log('Adding Upstash Redis for caching & rate limiting');
+    }
+
+    if (config.includeBackgroundJobs) {
+      deps.push('inngest');
+      log('Adding Inngest for background jobs');
+    }
+
+    if (config.includeWebhooks) {
+      deps.push('svix');
+      log('Adding Svix for webhooks');
+    }
+
+    if (config.includeFeatureFlags) {
+      deps.push('@vercel/flags');
+      log('Adding Vercel Flags for feature flags');
+    }
+
+    if (config.includeABTesting) {
+      deps.push('@vercel/edge-config');
+      log('Adding Vercel Edge Config for A/B testing');
+    }
+
+    if (config.includeMonitoring) {
+      deps.push('@sentry/nextjs');
+      log('Adding Sentry for error monitoring');
+    }
+
+    if (config.includeAnalytics) {
+      deps.push('@vercel/analytics', '@vercel/speed-insights');
+      log('Adding Vercel Analytics & Speed Insights');
+    }
+
     log(`Installing: ${deps.join(', ')}`);
     await execa('pnpm', ['add', ...deps], execOptions);
     spinner.succeed('Dependencies installed');
@@ -216,18 +252,301 @@ async function createConfigFiles(config: ProjectConfig) {
     useTabs: false,
   }, null, 2));
 
+  // VS Code settings for AI development
+  await fs.mkdir('.vscode', { recursive: true });
+  const vscodeSettings = {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit"
+    },
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "typescript.enablePromptUseWorkspaceTsdk": true,
+    "files.associations": {
+      "*.css": "tailwindcss"
+    },
+    "tailwindCSS.experimental.classRegex": [
+      ["cva\\(([^)]*)\\)", "[\"\`]([^\"\`]*).*?[\"\`]"],
+      ["cn\\(([^)]*)\\)", "[\"\`]([^\"\`]*).*?[\"\`]"]
+    ]
+  };
+  await fs.writeFile('.vscode/settings.json', JSON.stringify(vscodeSettings, null, 2));
+
+  // Cursor rules for AI development
+  const cursorRules = `# AI Development Rules for ${config.projectName}
+
+## Project Context
+This is a Next.js 15 application built with the App Router, TypeScript, and Tailwind CSS.
+
+### Tech Stack
+- **Framework**: Next.js 15 (App Router)
+- **Language**: TypeScript (strict mode)
+- **Styling**: Tailwind CSS + Shadcn UI
+${config.includeAuth ? '- **Auth**: Clerk\n' : ''}${config.includeDb ? '- **Database**: Supabase (PostgreSQL)\n' : ''}${config.includeTests ? '- **Testing**: Vitest + Playwright\n' : ''}${config.includeCaching ? '- **Caching**: Upstash Redis\n' : ''}${config.includeBackgroundJobs ? '- **Background Jobs**: Inngest\n' : ''}${config.includeMonitoring ? '- **Monitoring**: Sentry\n' : ''}
+## Code Style Rules
+
+1. **Use Server Components by default**
+   - Only add 'use client' when necessary (useState, useEffect, browser APIs, event handlers)
+   - Fetch data in Server Components when possible
+
+2. **File Naming**
+   - Components: PascalCase (e.g., \`UserProfile.tsx\`)
+   - Utilities: camelCase (e.g., \`formatDate.ts\`)
+   - Pages/Routes: kebab-case (e.g., \`user-profile/page.tsx\`)
+
+3. **Import Order**
+   \`\`\`typescript
+   // 1. React/Next imports
+   import { useState } from 'react';
+   import Image from 'next/image';
+   
+   // 2. External libraries
+   import { clsx } from 'clsx';
+   
+   // 3. Internal components
+   import { Button } from '@/components/ui/button';
+   
+   // 4. Internal utilities
+   import { cn } from '@/lib/utils';
+   
+   // 5. Types
+   import type { User } from '@/types';
+   \`\`\`
+
+4. **TypeScript**
+   - Always define types/interfaces
+   - Use \`type\` for unions, \`interface\` for objects
+   - Avoid \`any\`, use \`unknown\` if needed
+
+5. **Component Structure**
+   \`\`\`typescript
+   // Props interface first
+   interface ComponentProps {
+     title: string;
+     onAction?: () => void;
+   }
+   
+   // Component
+   export function Component({ title, onAction }: ComponentProps) {
+     // Hooks first
+     const [state, setState] = useState();
+     
+     // Event handlers
+     const handleClick = () => {};
+     
+     // Render
+     return <div>...</div>;
+   }
+   \`\`\`
+
+## Next.js Patterns
+
+1. **Data Fetching**
+   \`\`\`typescript
+   // Server Component (preferred)
+   async function Page() {
+     const data = await fetch('...').then(r => r.json());
+     return <div>{data}</div>;
+   }
+   
+   // Client Component (when needed)
+   'use client'
+   function Page() {
+     const { data } = useSWR('/api/data');
+     return <div>{data}</div>;
+   }
+   \`\`\`
+
+2. **Route Handlers**
+   \`\`\`typescript
+   // app/api/users/route.ts
+   import { NextResponse } from 'next/server';
+   
+   export async function GET(request: Request) {
+     const data = await fetchData();
+     return NextResponse.json(data);
+   }
+   \`\`\`
+
+3. **Metadata**
+   \`\`\`typescript
+   export const metadata = {
+     title: 'Page Title',
+     description: 'Page description',
+   };
+   \`\`\`
+
+## Tailwind/Shadcn Patterns
+
+1. **Use cn() utility for conditional classes**
+   \`\`\`typescript
+   import { cn } from '@/lib/utils';
+   
+   <div className={cn(
+     "base-classes",
+     variant === "primary" && "primary-classes",
+     className
+   )} />
+   \`\`\`
+
+2. **Shadcn Components**
+   - Import from \`@/components/ui\`
+   - Customize in place or wrap for project-specific logic
+   - Use built-in variants when available
+
+${config.includeAuth ? `## Authentication (Clerk)
+
+1. **Protected Routes**
+   \`\`\`typescript
+   import { auth } from '@clerk/nextjs';
+   
+   export default async function ProtectedPage() {
+     const { userId } = auth();
+     if (!userId) redirect('/sign-in');
+     // ...
+   }
+   \`\`\`
+
+2. **Client Components**
+   \`\`\`typescript
+   'use client'
+   import { useUser } from '@clerk/nextjs';
+   
+   export function UserProfile() {
+     const { user } = useUser();
+     return <div>{user?.firstName}</div>;
+   }
+   \`\`\`
+` : ''}
+${config.includeDb ? `## Database (Supabase)
+
+1. **Server-side queries**
+   \`\`\`typescript
+   import { createClient } from '@/lib/supabase/server';
+   
+   export async function getData() {
+     const supabase = createClient();
+     const { data } = await supabase.from('table').select('*');
+     return data;
+   }
+   \`\`\`
+
+2. **Client-side queries**
+   \`\`\`typescript
+   'use client'
+   import { createClient } from '@/lib/supabase/client';
+   
+   const supabase = createClient();
+   const { data } = await supabase.from('table').select('*');
+   \`\`\`
+` : ''}
+${config.includeCaching ? `## Caching (Redis)
+
+1. **Rate Limiting**
+   \`\`\`typescript
+   import { ratelimit } from '@/lib/redis';
+   
+   const { success } = await ratelimit.limit(identifier);
+   if (!success) return new Response('Too many requests', { status: 429 });
+   \`\`\`
+
+2. **Data Caching**
+   \`\`\`typescript
+   import { redis } from '@/lib/redis';
+   
+   const cached = await redis.get(key);
+   if (cached) return cached;
+   
+   const data = await fetchData();
+   await redis.set(key, data, { ex: 3600 });
+   \`\`\`
+` : ''}
+## Performance Best Practices
+
+1. **Images**: Always use next/image
+2. **Fonts**: Use next/font
+3. **Dynamic imports**: For heavy components
+4. **Streaming**: Use Suspense and loading.tsx
+5. **Caching**: Use ISR and cache() for data fetching
+
+## Common Mistakes to Avoid
+
+- ❌ Using 'use client' unnecessarily
+- ❌ Fetching data in client components when server components would work
+- ❌ Not using TypeScript types
+- ❌ Ignoring ESLint warnings
+- ❌ Not using Image component for images
+- ❌ Hardcoding API URLs (use env variables)
+
+## When to Ask for Clarification
+
+- New external API integration
+- Database schema changes
+- Authentication flow modifications
+- Major architectural decisions
+
+## Helpful Commands
+
+\`\`\`bash
+pnpm dev          # Start dev server
+pnpm build        # Build for production
+pnpm lint         # Run ESLint
+pnpm type-check   # Check TypeScript
+${config.includeTests ? 'pnpm test        # Run tests\n' : ''}\`\`\`
+
+---
+
+**Remember**: Prioritize code quality, type safety, and user experience. When in doubt, ask!
+`;
+  await fs.writeFile('.cursorrules', cursorRules);
+
   // TypeScript config updates, middleware, layouts, etc.
   // ... (all the file creation logic from the bash script)
   
   // Environment variables
-  const envContent = `# Clerk Auth Keys (Get from: https://dashboard.clerk.com)
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=${config.envVars.clerkPublishableKey || 'pk_test_...'}
-CLERK_SECRET_KEY=${config.envVars.clerkSecretKey || 'sk_test_...'}
+  let envContent = `# Clerk Auth Keys (Get from: https://dashboard.clerk.com)\nNEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=${config.envVars.clerkPublishableKey || 'pk_test_...'}\nCLERK_SECRET_KEY=${config.envVars.clerkSecretKey || 'sk_test_...'}\n\n# Supabase Keys (Get from: https://supabase.com/dashboard)\nNEXT_PUBLIC_SUPABASE_URL=${config.envVars.supabaseUrl || 'https://your-project.supabase.co'}\nNEXT_PUBLIC_SUPABASE_ANON_KEY=${config.envVars.supabaseAnonKey || 'your-anon-key'}\n`;
 
-# Supabase Keys (Get from: https://supabase.com/dashboard)
-NEXT_PUBLIC_SUPABASE_URL=${config.envVars.supabaseUrl || 'https://your-project.supabase.co'}
-NEXT_PUBLIC_SUPABASE_ANON_KEY=${config.envVars.supabaseAnonKey || 'your-anon-key'}
-`;
+  // Add production features env vars
+  if (config.includeCaching) {
+    envContent += `\n# Upstash Redis (Get from: https://console.upstash.com)\nUPSTASH_REDIS_REST_URL=${config.envVars.upstashRedisUrl || 'https://your-redis.upstash.io'}\nUPSTASH_REDIS_REST_TOKEN=${config.envVars.upstashRedisToken || 'your-redis-token'}\n`;
+  }
+
+  if (config.includeBackgroundJobs) {
+    envContent += `\n# Inngest (Get from: https://www.inngest.com)\nINNGEST_EVENT_KEY=your-inngest-event-key\nINNGEST_SIGNING_KEY=your-inngest-signing-key\n`;
+  }
+
+  if (config.includeWebhooks) {
+    envContent += `\n# Webhook Signing Secret\nWEBHOOK_SECRET=your-webhook-secret\n`;
+  }
+
+  if (config.includeMonitoring) {
+    envContent += `\n# Sentry (Get from: https://sentry.io)\nSENTRY_DSN=${config.envVars.sentryDsn || 'https://your-sentry-dsn@sentry.io/project-id'}\n`;
+  }
+
+  if (config.includeFeatureFlags || config.includeABTesting) {
+    envContent += `\n# Vercel Edge Config (Get from: https://vercel.com/dashboard)\nEDGE_CONFIG=your-edge-config-id\n`;
+  }
 
   await fs.writeFile('.env.local', envContent);
+
+  // Create lib files for production features
+  if (config.includeCaching) {
+    const redisLibContent = `import { Redis } from '@upstash/redis';\nimport { Ratelimit } from '@upstash/ratelimit';\n\nexport const redis = new Redis({\n  url: process.env.UPSTASH_REDIS_REST_URL!,\n  token: process.env.UPSTASH_REDIS_REST_TOKEN!,\n});\n\n// Rate limiting configuration\nexport const ratelimit = new Ratelimit({\n  redis,\n  limiter: Ratelimit.slidingWindow(10, '10 s'),\n  analytics: true,\n});\n`;
+    await fs.mkdir('src/lib', { recursive: true });
+    await fs.writeFile('src/lib/redis.ts', redisLibContent);
+  }
+
+  if (config.includeBackgroundJobs) {
+    const inngestContent = `import { Inngest } from 'inngest';\n\nexport const inngest = new Inngest({ id: 'my-app' });\n`;
+    await fs.mkdir('src/lib', { recursive: true });
+    await fs.writeFile('src/lib/inngest.ts', inngestContent);
+  }
+
+  if (config.includeMonitoring) {
+    const sentryContent = `import * as Sentry from '@sentry/nextjs';\n\nSentry.init({\n  dsn: process.env.SENTRY_DSN,\n  tracesSampleRate: 1.0,\n  debug: false,\n});\n`;
+    await fs.writeFile('sentry.client.config.ts', sentryContent);
+    await fs.writeFile('sentry.server.config.ts', sentryContent);
+    await fs.writeFile('sentry.edge.config.ts', sentryContent);
+  }
 }
+
