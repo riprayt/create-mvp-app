@@ -1,5 +1,8 @@
 import { defineConfig } from 'vitest/config';
 import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
   test: {
@@ -19,5 +22,9 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
       '@tests': path.resolve(__dirname, './tests'),
     },
+    extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
+  },
+  esbuild: {
+    target: 'node20',
   },
 });
