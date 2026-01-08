@@ -29,13 +29,23 @@ create-mvp-app/
 ├── src/
 │   ├── index.ts              # CLI entry point
 │   ├── types.ts              # TypeScript types
+│   ├── utils/                # Shared utilities
+│   │   ├── brand-name.ts
+│   │   ├── logger.ts
+│   │   └── constants.ts
 │   └── lib/
-│       └── create-project.ts # Main project creation logic
+│       ├── create-project.ts # Main orchestrator (83 lines!)
+│       ├── installers/       # Package installers
+│       ├── generators/       # File generators
+│       └── git/              # Git operations
 ├── dist/                     # Compiled output (gitignored)
+├── ARCHITECTURE.md           # Architecture documentation
 ├── package.json
 ├── tsconfig.json
 └── README.md
 ```
+
+**📖 See [ARCHITECTURE.md](./ARCHITECTURE.md) for detailed architecture documentation.**
 
 ## 🔧 Development Workflow
 
@@ -218,19 +228,86 @@ if (config.includeNewFeature) {
 
 ### `src/lib/create-project.ts`
 
-- Main project creation logic
-- Dependency installation
-- File generation
-- Git initialization
+- **Main orchestrator** (only 83 lines!)
+- Coordinates all installers and generators
+- Handles error flow
+- Clean, readable, maintainable
 
-**Important sections:**
-- Dependency installation (lines ~85-140)
-- Config file creation (lines ~240-300)
+**Modular structure:**
+- `installers/` - Package and tool installation
+- `generators/` - File and config generation  
+- `git/` - Git operations
+- `utils/` - Shared utilities
+
+**See [ARCHITECTURE.md](./ARCHITECTURE.md) for detailed breakdown**
 
 ### `src/types.ts`
 
 - TypeScript interfaces
 - Ensures type safety across the project
+
+## 🏠 Landing Page Feature
+
+The landing page is automatically generated when `includeBlocks` is true. It's designed to **explain what create-mvp-app is and showcase its features**, giving developers an informative starting point. Here's how it works:
+
+### Brand Name Generation
+
+The `projectNameToBrandName()` function converts kebab-case project names to Title Case:
+
+```typescript
+// Input: "my-awesome-app"
+// Output: "My Awesome App"
+
+function projectNameToBrandName(projectName: string): string {
+  return projectName
+    .split('-')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+}
+```
+
+### Landing Page Creation
+
+The `createLandingPage()` function generates a production-ready landing page in `src/app/page.tsx`:
+
+**Components included:**
+- **Navbar1** - Navigation with logo, menu items, and documentation links
+- **Hero3** - Hero section welcoming users and explaining create-mvp-app
+- **Feature13** - Overview of what's included out of the box
+- **Feature72** - Showcase of 90+ available Shadcn Blocks components
+- **Feature51** - Modern tech stack presentation
+- **Testimonial10** - Benefits and features explanation
+- **Cta11** - Call-to-action linking to documentation and resources
+- **Footer2** - Footer with useful links to tools and resources
+
+**Key features:**
+- **Informative Content** - Explains create-mvp-app and its features
+- **Resource Links** - Links to documentation, GitHub, and tools
+- **Component Showcase** - Demonstrates Shadcn Blocks in action
+- **Dynamic branding** - Uses project name throughout
+- **Developer-friendly** - Helps understand the starter template
+- **Fully responsive** - Mobile-first design
+- **Easy to customize** - Simple to modify for own app
+
+**Files created:**
+- `src/app/page.tsx` - Complete landing page with all sections
+
+### Customizing the Landing Page
+
+After project creation, developers can:
+1. Replace the logo URL with their own
+2. Update menu items and links
+3. Modify hero text and CTAs
+4. Add/remove sections as needed
+5. Customize colors and styling
+6. Replace placeholder content
+
+Example customization:
+```typescript
+// In src/app/page.tsx
+const brandName = "My Awesome App"; // Auto-generated
+// Change logo URL, menu items, hero content, etc.
+```
 
 ## 🐛 Debugging
 

@@ -20,10 +20,12 @@ npx create-mvp-app
 ## ✨ What You Get
 
 - 🤖 **AI-Ready** - Auto-configured for Cursor IDE & AI coding
+- 🏗️ **Scalable Architecture** - Modular design with best practices built-in
 - ⚡ **Next.js 15** - App Router, TypeScript, Tailwind CSS
 - 🔐 **Auth** - Clerk with social logins & MFA
 - 💾 **Database** - Supabase (PostgreSQL)
 - 🎨 **90+ Components** - Shadcn UI + Blocks
+- 🏠 **Informative Landing Page** - Pre-built page explaining create-mvp-app features & components
 - 🧪 **Testing** - Vitest + Playwright
 - 📦 **Production Tools** - Caching, Jobs, Monitoring, Analytics
 
@@ -93,6 +95,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 ## 📚 Documentation
 
 - 📖 [Features & CLI Options](./FEATURES.md) - Complete feature list
+- 🏗️ [Architecture](./ARCHITECTURE.md) - Modular design & code organization
 - 🚀 [Production Tips](./PRODUCTION-TIPS.md) - Optimize for production
 - 🛠️ [Contributing](./CONTRIBUTING.md) - Develop create-mvp-app
 

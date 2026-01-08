@@ -5,10 +5,22 @@ Complete guide to all features available in Create MVP App.
 ## 🎯 Core Features
 
 ### 🤖 AI Development Bundle
-- **Auto-generated `.cursorrules`** - AI coding instructions optimized for your project
+- **Auto-generated `.cursorrules`** - AI coding instructions optimized for your project with comprehensive scalability guidelines
 - **VS Code settings** - Pre-configured for AI-assisted development
 - **Type-safe** - Full TypeScript support with strict mode
 - **AI-friendly structure** - Clear file organization for better AI understanding
+- **Scalability Best Practices** - Built-in guidelines for modular, maintainable code
+
+### 🏗️ Scalable Architecture (NEW!)
+- **File Size Guidelines** - Enforces max 200-300 line files
+- **Service Layer Pattern** - Separates business logic from UI
+- **Repository Pattern** - Data access layer for clean database queries
+- **Feature-Based Organization** - Scales from small to large applications
+- **Modular Design** - Each module has single responsibility
+- **When to Refactor Guide** - Clear signals for code improvement
+- **Growth Strategy** - Patterns for small, medium, and large apps
+
+**See [ARCHITECTURE.md](./ARCHITECTURE.md) for implementation details**
 
 ### 🔐 Authentication (Clerk)
 - Social logins (Google, GitHub, etc.)
@@ -33,6 +45,46 @@ Complete guide to all features available in Create MVP App.
 - Fully customizable with Tailwind CSS
 - Accessible (ARIA compliant)
 - Responsive by default
+
+### 🏠 Landing Page
+- **Pre-built Landing Page** - Beautiful, production-ready landing page that **explains what create-mvp-app is**
+- **Informative Content** - Showcases the features, components, and tech stack included in your project
+- **Dynamic Branding** - Brand name automatically generated from project name
+- **Complete Sections**:
+  - Responsive Navbar with navigation menu
+  - Hero section explaining create-mvp-app
+  - Features overview (what's included)
+  - Components showcase (90+ Shadcn Blocks)
+  - Tech stack section
+  - Testimonials section
+  - Call-to-action with documentation links
+  - Footer with useful resources and tools
+- **Developer-Friendly** - Helps you understand your starter template
+- **Customizable** - Easily modify for your own app after reviewing
+- **Mobile-first** - Fully responsive design
+- **Files Created**:
+  - `src/app/page.tsx` - Landing page with branded components and create-mvp-app information
+
+**Brand Name Generation Examples**:
+- `my-awesome-app` → `My Awesome App`
+- `todo-list` → `Todo List`
+- `e-commerce-store` → `E Commerce Store`
+- `saas-starter` → `Saas Starter`
+- `portfolio-website` → `Portfolio Website`
+
+**Landing Page Purpose**:
+The landing page serves as an **informative welcome** that:
+- Explains what create-mvp-app provides
+- Demonstrates included components
+- Links to documentation and resources
+- Shows the tech stack and tools
+- Provides a starting point for customization
+
+The brand name is automatically used throughout the landing page in:
+- Navbar logo title
+- Hero section welcome message
+- Footer branding
+- Page metadata
 
 ### 🧪 Testing
 - **Unit Tests**: Vitest for component and logic testing
