@@ -21,6 +21,7 @@
     "test:coverage": "vitest --coverage",
     "test:unit": "vitest tests/generators tests/installers tests/utils tests/git",
     "test:integration": "vitest tests/integration",
+    "verify": "pnpm build && pnpm test",
     "prepare": "pnpm build",
     "prepublishOnly": "pnpm build"
   },
