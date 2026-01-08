@@ -7,6 +7,7 @@
     "create-mvp-app": "dist/index.js"
   },
   "type": "module",
+  "packageManager": "pnpm@9.0.0",
   "files": [
     "dist",
     "assets",
