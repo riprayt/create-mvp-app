@@ -28,9 +28,10 @@ export default defineConfig({
       '@tests': path.resolve(__dirname, './tests'),
     },
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
+    conditions: ['import', 'module', 'browser', 'default'],
   },
   esbuild: {
     target: 'node20',
-    include: /\.ts$/,
+    format: 'esm',
   },
 });

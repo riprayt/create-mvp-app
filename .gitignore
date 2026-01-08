@@ -15,3 +15,6 @@ QUICKSTART.md
 # Test projects
 test-*
 my-*
+
+# But allow test helpers
+!tests/helpers/test-utils.ts
