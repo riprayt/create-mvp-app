@@ -1,0 +1,12 @@
+node_modules
+dist
+*.log
+.env
+.env.local
+
+# Documentation (except README.md)
+DEPLOYMENT.md
+PRODUCTION-TIPS.md
+CONFIGURATION-SUMMARY.md
+QUICK-REFERENCE.md
+QUICKSTART.md

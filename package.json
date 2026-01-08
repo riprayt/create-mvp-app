@@ -1,0 +1,44 @@
+{
+  "name": "create-mvp-app",
+  "version": "1.0.0",
+  "description": "CLI tool to scaffold production-ready Next.js MVPs with authentication, database, and UI components",
+  "main": "dist/index.js",
+  "bin": {
+    "create-mvp-app": "./dist/index.js"
+  },
+  "type": "module",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "start": "node dist/index.js",
+    "prepare": "pnpm build",
+    "prepublishOnly": "pnpm build"
+  },
+  "keywords": [
+    "nextjs",
+    "mvp",
+    "scaffolding",
+    "cli",
+    "boilerplate",
+    "starter",
+    "create-app"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^11.1.0",
+    "prompts": "^2.4.2",
+    "chalk": "^5.3.0",
+    "ora": "^8.0.1",
+    "execa": "^8.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.6",
+    "@types/prompts": "^2.4.9",
+    "typescript": "^5.3.3"
+  }
+}
