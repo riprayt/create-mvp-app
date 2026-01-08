@@ -1,9 +1,5 @@
 # AI Development Rules for create-mvp-app CLI
 
-> **Welcome to the AI-Driven Development Era** 🤖
-> 
-> This isn't just a CLI tool—it's your entry point to the new AI-driven world of software development. Create-mvp-app bridges the gap between human ideas and production-ready code, leveraging AI to accelerate from concept to deployment. Every line of code here is optimized for AI understanding, every pattern designed for AI collaboration. You're not just building a tool; you're building the future of how developers ship products.
-
 ## Project Context
 This is a CLI tool that scaffolds production-ready Next.js MVPs with authentication, database, UI components, and production features. It's built to be simple, fast, and opinionated.
 
