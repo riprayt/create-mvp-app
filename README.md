@@ -1,6 +1,6 @@
 # Create MVP App
 
-🚀 A powerful CLI tool to scaffold production-ready Next.js MVPs in minutes. Get your SaaS up and running with authentication, database, and 90+ UI components out of the box.
+🚀 A framework to set up the frameworks in minutes. Framework of frameworks. Get your app up and running with authentication, database, and 90+ UI components out of the box.
 
 [![npm version](https://img.shields.io/npm/v/create-mvp-app.svg)](https://www.npmjs.com/package/create-mvp-app)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
