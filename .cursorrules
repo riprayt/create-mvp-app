@@ -1,0 +1,515 @@
+# AI Development Rules for create-mvp-app CLI
+
+## Project Context
+This is a CLI tool that scaffolds production-ready Next.js MVPs with authentication, database, UI components, and production features. It's built to be simple, fast, and opinionated.
+
+### Tech Stack
+- **Language**: TypeScript (strict mode)
+- **CLI Framework**: Commander.js
+- **Prompts**: Prompts library
+- **Process Execution**: Execa
+- **UI**: Chalk (colors), Ora (spinners)
+- **Build**: TypeScript compiler (tsc)
+- **Package Manager**: pnpm
+
+## Project Structure
+
+```
+create-mvp-app/
+├── src/
+│   ├── index.ts              # CLI entry point, prompts, options
+│   ├── types.ts              # TypeScript interfaces
+│   └── lib/
+│       └── create-project.ts # Main project creation logic
+├── dist/                     # Compiled output (gitignored)
+├── *.md                      # Documentation
+└── package.json
+```
+
+## Code Style Rules
+
+### 1. TypeScript Best Practices
+
+**Always use strict types:**
+```typescript
+// ✅ Good
+interface ProjectConfig {
+  projectName: string;
+  includeAuth: boolean;
+}
+
+function createProject(config: ProjectConfig): Promise<void> {
+  // ...
+}
+
+// ❌ Bad
+function createProject(config: any) {
+  // ...
+}
+```
+
+**Export types from types.ts:**
+```typescript
+// types.ts
+export interface ProjectConfig {
+  // ...
+}
+
+// index.ts
+import { type ProjectConfig } from './types.js';
+```
+
+### 2. File Organization
+
+**index.ts handles:**
+- CLI command definition
+- User prompts
+- Config building
+- Final messages
+
+**create-project.ts handles:**
+- All installation steps
+- File generation
+- Git operations
+- Actual project creation
+
+**types.ts handles:**
+- All TypeScript interfaces
+- Type exports only
+
+### 3. Import Rules
+
+```typescript
+// Always use .js extension for local imports (ESM requirement)
+import { createProject } from './lib/create-project.js';
+import { type ProjectConfig } from './types.js';
+
+// External imports without extension
+import { execa } from 'execa';
+import chalk from 'chalk';
+```
+
+## CLI Patterns
+
+### 1. Command Definition (Commander.js)
+
+```typescript
+program
+  .name('create-mvp-app')
+  .description('Description here')
+  .version('1.0.0')
+  .argument('[project-name]', 'Optional argument')
+  .option('-y, --yes', 'Boolean flag')
+  .option('--flag <value>', 'Flag with value')
+  .action(async (projectName, options) => {
+    // Handler logic
+  });
+
+program.parse();
+```
+
+### 2. User Prompts (Prompts library)
+
+```typescript
+const responses = await prompts([
+  {
+    type: 'text',
+    name: 'projectName',
+    message: 'What is your project name?',
+    initial: 'my-app',
+    validate: (value) => /^[a-z0-9-]+$/.test(value) || 'Kebab-case only',
+  },
+  {
+    type: 'multiselect',
+    name: 'features',
+    message: 'Select features:',
+    choices: [
+      { title: 'Feature 1', value: 'feat1', selected: true },
+      { title: 'Feature 2', value: 'feat2', selected: false },
+    ],
+    hint: 'Space to select, Enter to confirm',
+  },
+  {
+    type: 'confirm',
+    name: 'confirmAction',
+    message: 'Proceed?',
+    initial: true,
+  },
+]);
+
+// Check for cancellation
+if (responses.projectName === undefined) {
+  console.log(chalk.yellow('\n👋 Setup cancelled'));
+  process.exit(0);
+}
+```
+
+### 3. Process Execution (Execa)
+
+```typescript
+// With spinner
+const spinner = ora('Installing dependencies...').start();
+try {
+  await execa('pnpm', ['add', 'package'], execOptions);
+  spinner.succeed('Dependencies installed');
+} catch (error) {
+  spinner.fail('Failed to install dependencies');
+  throw error;
+}
+
+// Debug mode support
+const execOptions = debugMode ? { stdio: 'inherit' as const } : {};
+await execa('command', ['args'], execOptions);
+
+// Shell commands
+await execa('sh', ['-c', 'complex | shell | command'], execOptions);
+```
+
+### 4. User Messages (Chalk)
+
+```typescript
+// Success
+console.log(chalk.green.bold('✅ Success!'));
+console.log(chalk.green('Operation completed'));
+
+// Error
+console.error(chalk.red('❌ Error:'), error);
+
+// Warning
+spinner.warn('Optional feature skipped');
+console.log(chalk.yellow('⚠️ Warning'));
+
+// Info
+console.log(chalk.blue('👉 Next Steps:'));
+console.log(chalk.gray('[DEBUG] Debug message'));
+```
+
+## Adding New Features
+
+### Step-by-Step Guide
+
+**1. Update types.ts:**
+```typescript
+export interface ProjectConfig {
+  // ... existing fields
+  includeNewFeature: boolean;
+  // ... more fields
+}
+```
+
+**2. Add CLI option (index.ts):**
+```typescript
+.option('--new-feature', 'Enable new feature')
+```
+
+**3. Add to interactive prompt (index.ts):**
+```typescript
+{
+  type: 'multiselect',
+  name: 'productionFeatures',
+  choices: [
+    // ... existing
+    { title: 'New Feature (Description)', value: 'newfeature', selected: true },
+  ],
+}
+```
+
+**4. Update config creation (index.ts):**
+```typescript
+config = {
+  // ... existing
+  includeNewFeature: productionFeatures.includes('newfeature'),
+};
+```
+
+**5. Install dependencies (create-project.ts):**
+```typescript
+if (config.includeNewFeature) {
+  deps.push('new-feature-package');
+  log('Adding new feature package');
+}
+```
+
+**6. Create config files (create-project.ts):**
+```typescript
+if (config.includeNewFeature) {
+  const configContent = `// Config here`;
+  await fs.mkdir('src/lib', { recursive: true });
+  await fs.writeFile('src/lib/newfeature.ts', configContent);
+}
+```
+
+**7. Update .env.local generation (create-project.ts):**
+```typescript
+if (config.includeNewFeature) {
+  envContent += `\n# New Feature\nNEW_FEATURE_KEY=your-key\n`;
+}
+```
+
+**8. Update .cursorrules generation (create-project.ts):**
+```typescript
+${config.includeNewFeature ? `## New Feature
+
+Usage patterns and examples here
+` : ''}
+```
+
+**9. Update documentation:**
+- README.md - Mention in features list
+- FEATURES.md - Add detailed section
+- PRODUCTION-TIPS.md - Add tips if applicable
+
+## Common Patterns
+
+### 1. Debug Logging
+
+```typescript
+const log = (message: string) => {
+  if (debugMode) {
+    console.log(chalk.gray(`[DEBUG] ${message}`));
+  }
+};
+
+log('Detailed information for debugging');
+```
+
+### 2. Conditional Execution
+
+```typescript
+if (config.includeFeature) {
+  spinner = ora('Installing feature...').start();
+  try {
+    // Installation logic
+    spinner.succeed('Feature installed');
+  } catch (error) {
+    spinner.fail('Failed to install feature');
+    throw error;
+  }
+}
+```
+
+### 3. File Creation
+
+```typescript
+// Create directory first
+await fs.mkdir('path/to/dir', { recursive: true });
+
+// Write file
+await fs.writeFile('path/to/file.ts', content);
+
+// JSON files
+await fs.writeFile('config.json', JSON.stringify(config, null, 2));
+```
+
+### 4. Environment Variables
+
+```typescript
+// String concatenation with template literals
+let envContent = `# Section 1\nKEY1=value1\n`;
+
+if (condition) {
+  envContent += `\n# Section 2\nKEY2=value2\n`;
+}
+
+await fs.writeFile('.env.local', envContent);
+```
+
+## Error Handling
+
+### 1. Installation Errors
+
+```typescript
+try {
+  await execa('command', ['args']);
+  spinner.succeed('Success');
+} catch (error) {
+  spinner.fail('Failed');
+  throw error; // Let main try/catch handle it
+}
+```
+
+### 2. Git Errors (Non-Critical)
+
+```typescript
+try {
+  await execa('git', ['command']);
+  spinner.succeed('Git initialized');
+} catch (error) {
+  spinner.warn('Git initialization skipped');
+  if (debugMode) {
+    console.log(chalk.yellow(`Git error: ${error}`));
+  }
+}
+```
+
+### 3. Main Error Handler
+
+```typescript
+try {
+  await createProject(config);
+  console.log(chalk.green.bold('\n✅ Setup Complete!\n'));
+} catch (error) {
+  console.error(chalk.red('\n❌ Error creating project:'), error);
+  process.exit(1);
+}
+```
+
+## Testing Guidelines
+
+### Manual Testing Checklist
+
+Before committing:
+
+```bash
+# Build
+pnpm build
+
+# Test interactive mode
+node dist/index.js test-project
+
+# Test quick mode
+node dist/index.js test-quick --yes
+
+# Test minimal
+node dist/index.js test-min --no-auth --no-db --no-blocks
+
+# Test debug mode
+node dist/index.js test-debug --debug
+
+# Test with all production features
+# (select all in prompt)
+node dist/index.js test-prod
+```
+
+### Pre-commit Checks
+
+1. TypeScript compiles without errors: `pnpm build`
+2. All imports use `.js` extension
+3. Types are properly exported from `types.ts`
+4. Debug logging uses the `log()` function
+5. Spinners have success/fail states
+6. Error messages are user-friendly
+
+## Performance Considerations
+
+### 1. Parallel Operations
+
+```typescript
+// ❌ Bad - Sequential
+await execa('pnpm', ['add', 'pkg1']);
+await execa('pnpm', ['add', 'pkg2']);
+
+// ✅ Good - Single command
+await execa('pnpm', ['add', 'pkg1', 'pkg2']);
+```
+
+### 2. File Operations
+
+```typescript
+// Group file writes when possible
+await fs.mkdir('src/lib', { recursive: true });
+await Promise.all([
+  fs.writeFile('src/lib/file1.ts', content1),
+  fs.writeFile('src/lib/file2.ts', content2),
+]);
+```
+
+## Documentation
+
+### When to Update Docs
+
+**README.md:**
+- New major features
+- Changes to usage
+- New CLI options
+
+**FEATURES.md:**
+- Detailed feature descriptions
+- CLI option reference
+- Examples
+
+**CONTRIBUTING.md:**
+- Architecture changes
+- New development patterns
+- Build/test process changes
+
+## Common Mistakes to Avoid
+
+1. ❌ Forgetting `.js` extension in imports
+2. ❌ Using `any` type instead of proper types
+3. ❌ Not checking for prompt cancellation
+4. ❌ Missing spinner success/fail states
+5. ❌ Hardcoding values instead of using config
+6. ❌ Not supporting debug mode in new features
+7. ❌ Forgetting to update documentation
+8. ❌ Not testing with `--yes` flag
+9. ❌ Breaking changes without version bump
+10. ❌ Not handling errors gracefully
+
+## Versioning (Semantic Versioning)
+
+- **Major (x.0.0)**: Breaking changes to CLI or generated output
+- **Minor (0.x.0)**: New features, new CLI options
+- **Patch (0.0.x)**: Bug fixes, documentation
+
+```bash
+npm version patch  # Bug fixes
+npm version minor  # New features
+npm version major  # Breaking changes
+```
+
+## Publishing Workflow
+
+```bash
+# 1. Ensure everything is committed
+git status
+
+# 2. Build
+pnpm build
+
+# 3. Test
+node dist/index.js test-project
+
+# 4. Version bump
+npm version minor  # or patch/major
+
+# 5. Publish
+npm publish
+
+# 6. Push to git
+git push origin master --tags
+```
+
+## Best Practices
+
+1. **Keep it simple** - This is a CLI tool, optimize for clarity
+2. **User-friendly errors** - Users should know what went wrong
+3. **Debug mode** - All operations should support `--debug`
+4. **Graceful degradation** - If optional features fail, continue
+5. **Fast by default** - Use spinners for long operations
+6. **Type-safe** - Leverage TypeScript's type system
+7. **Documented** - Update docs when adding features
+8. **Tested** - Test all scenarios before publishing
+
+## When to Ask for Clarification
+
+- Adding new external dependencies
+- Changing CLI command structure
+- Breaking changes to existing features
+- Major architectural decisions
+- New file generation patterns
+
+## Helpful Commands
+
+```bash
+pnpm build              # Compile TypeScript
+pnpm dev                # Watch mode
+pnpm start <args>       # Run compiled CLI
+node dist/index.js      # Direct execution
+pnpm link --global      # Link for global testing
+create-mvp-app          # Test globally linked version
+```
+
+---
+
+**Remember**: This CLI creates MVPs fast. Prioritize simplicity, speed, and user experience. When in doubt, ask!
