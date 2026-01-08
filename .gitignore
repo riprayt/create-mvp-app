@@ -5,16 +5,15 @@ dist
 .env.local
 .DS_Store
 
+# GitHub Actions (private workflow)
+.github/
+
 # Documentation (except README.md)
 DEPLOYMENT.md
 PRODUCTION-TIPS.md
 CONFIGURATION-SUMMARY.md
 QUICK-REFERENCE.md
 QUICKSTART.md
-
-# Test projects
-test-*
-my-*
 
 # Test projects
 test-*
