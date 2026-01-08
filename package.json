@@ -4,7 +4,7 @@
   "description": "CLI tool to scaffold production-ready Next.js MVPs with authentication, database, and UI components",
   "main": "dist/index.js",
   "bin": {
-    "create-mvp-app": "./dist/index.js"
+    "create-mvp-app": "dist/index.js"
   },
   "type": "module",
   "files": [
