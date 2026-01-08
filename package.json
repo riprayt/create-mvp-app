@@ -1,6 +1,6 @@
 {
   "name": "create-mvp-app",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "CLI tool to scaffold production-ready Next.js MVPs with authentication, database, and UI components",
   "main": "dist/index.js",
   "bin": {
