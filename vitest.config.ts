@@ -9,12 +9,17 @@ export default defineConfig({
     globals: true,
     environment: 'node',
     include: ['tests/**/*.test.ts'],
-    exclude: ['node_modules', 'dist', 'src/**/*.test.ts'],
+    exclude: ['node_modules', 'dist', 'src/**/*.test.ts', 'tests/helpers/**'],
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
       include: ['src/**/*.ts'],
       exclude: ['src/**/*.test.ts', 'src/**/*.d.ts', 'tests/**'],
+    },
+    server: {
+      deps: {
+        inline: ['tests/**'],
+      },
     },
   },
   resolve: {
@@ -26,5 +31,6 @@ export default defineConfig({
   },
   esbuild: {
     target: 'node20',
+    include: /\.ts$/,
   },
 });
