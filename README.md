@@ -1,12 +1,13 @@
 # Create MVP App
 
-🚀 A framework to set up the frameworks in minutes. Framework of frameworks. Get your app up and running with authentication, database, and 90+ UI components out of the box.
+🤖 **The Complete AI Development Bundle** - A framework to set up the frameworks in minutes. Framework of frameworks. Get your AI-powered app up and running with authentication, database, and 90+ UI components out of the box. Optimized for AI-first development with Cursor IDE.
 
 [![npm version](https://img.shields.io/npm/v/create-mvp-app.svg)](https://www.npmjs.com/package/create-mvp-app)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 ## 🎯 Why Create MVP App?
 
+- 🤖 **AI Development Ready** → Optimized for Cursor IDE and AI-assisted coding
 - ⏱️ **5-Minute Setup** → Production-ready app
 - 🚀 **Deploy in < 3 Minutes** → Vercel-optimized out of the box
 - 🔋 **Batteries Included** → Auth, DB, UI, Testing - all configured
@@ -15,10 +16,11 @@
 - 🔐 **Enterprise Security** → Security headers and best practices pre-configured
 - ⚡ **Zero Config** → Just run, deploy, ship
 
-**From idea to production in < 10 minutes.** Seriously.
+**From idea to production in < 10 minutes with AI.** Seriously.
 
 ## ✨ Features
 
+- 🤖 **AI Development Bundle** - Pre-configured for Cursor IDE with AI-assisted coding
 - 🎨 **Interactive CLI** - Beautiful prompts with multi-select options
 - ⚡️ **Quick Mode** - Skip prompts with command-line flags
 - 🔐 **Authentication** - Clerk integration with social logins & MFA

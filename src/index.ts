@@ -4,6 +4,7 @@ import { Command } from 'commander';
 import prompts from 'prompts';
 import chalk from 'chalk';
 import ora from 'ora';
+import path from 'path';
 import { execa } from 'execa';
 import { createProject } from './lib/create-project.js';
 import { type ProjectConfig } from './types.js';
@@ -172,16 +173,17 @@ program
       
       console.log(chalk.green.bold('\n✅ Setup Complete!\n'));
       
-      // Open in VS Code if requested
+      // Open in Cursor if requested
       if (config.openInVSCode) {
-        const spinner = ora('Opening in VS Code...').start();
+        const spinner = ora('Opening in Cursor...').start();
         try {
-          await execa('code', [config.projectName]);
-          spinner.succeed('Opened in VS Code!');
+          // After createProject, cwd is already the project directory
+          await execa('cursor', ['.']);
+          spinner.succeed('Opened in Cursor!');
         } catch (error) {
-          spinner.warn('Could not open VS Code automatically');
+          spinner.warn('Could not open Cursor automatically');
           if (debugMode) {
-            console.log(chalk.yellow('Make sure VS Code is installed and "code" command is in PATH'));
+            console.log(chalk.yellow('Make sure Cursor is installed and "cursor" command is in PATH'));
           }
         }
       }

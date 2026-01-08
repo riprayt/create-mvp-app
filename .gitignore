@@ -3,6 +3,7 @@ dist
 *.log
 .env
 .env.local
+.DS_Store
 
 # Documentation (except README.md)
 DEPLOYMENT.md

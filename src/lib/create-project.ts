@@ -57,11 +57,7 @@ export async function createProject(config: ProjectConfig) {
       '@/*',
       '--use-pnpm',
       '--no-git',
-    ], {
-      input: 'n\n', // Answer no to React compiler
-      shell: true,
-      ...execOptions,
-    });
+    ], execOptions);
     spinner.succeed('Next.js app created');
   } catch (error) {
     spinner.fail('Failed to create Next.js app');
@@ -185,19 +181,22 @@ export async function createProject(config: ProjectConfig) {
     throw error;
   }
 
-  // 8. Initialize Git
+  // 8. Initialize Git (after all files are created)
   if (config.initGit) {
     spinner = ora('Initializing Git repository...').start();
     try {
       log('Initializing git...');
       await execa('git', ['init'], execOptions);
-      log('Adding files...');
-      await execa('git', ['add', '.'], execOptions);
+      log('Adding all files...');
+      await execa('git', ['add', '-A'], execOptions);
       log('Creating initial commit...');
-      await execa('git', ['commit', '-m', 'Initial commit via create-mvp-app'], execOptions);
+      await execa('git', ['commit', '-m', 'Initial commit via create-mvp-app', '--no-verify'], execOptions);
       spinner.succeed('Git repository initialized');
     } catch (error) {
       spinner.warn('Git initialization skipped');
+      if (debugMode) {
+        console.log(chalk.yellow(`Git error: ${error}`));
+      }
     }
   }
 }
