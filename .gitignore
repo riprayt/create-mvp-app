@@ -5,9 +5,6 @@ dist
 .env.local
 .DS_Store
 
-# GitHub Actions (private workflow)
-.github/
-
 # Documentation (except README.md)
 DEPLOYMENT.md
 PRODUCTION-TIPS.md
