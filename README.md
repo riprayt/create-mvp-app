@@ -2,6 +2,10 @@
 
 🤖 **AI-First Development Bundle** - Production-ready Next.js app with Auth, Database, UI, and 90+ components in 5 minutes.
 
+> **Your Entry to the AI-Driven Development World** 🚀
+> 
+> This is more than a starter template—it's your gateway to building at the speed of thought. In the AI-driven era, developers who ship fast win. Create-mvp-app removes every barrier between your idea and production, giving you production-grade infrastructure, AI-optimized code, and battle-tested patterns—all configured in minutes. Stop configuring. Start shipping.
+
 [![npm version](https://img.shields.io/npm/v/create-mvp-app.svg)](https://www.npmjs.com/package/create-mvp-app)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
